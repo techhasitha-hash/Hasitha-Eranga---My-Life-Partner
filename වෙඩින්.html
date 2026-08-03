@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasitha Eranga - My Life Partner Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #f8f9fa;
+            --accent-color: #457b9d;
+            --text-dark: #1d3557;
+            --bg-color: #fffafb;
+            --whatsapp-color: #25D366;
+            --youtube-color: #FF0000;
+            --tiktok-color: #000000;
+            --facebook-color: #1877F2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans Sinhala', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ----- Background Floating Hearts & Sparkles ----- */
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .floating-bg i {
+            position: absolute;
+            display: block;
+            bottom: -50px;
+            color: rgba(230, 57, 70, 0.25);
+            animation: floatUp linear infinite;
+        }
+
+        .floating-bg i.fa-sparkles, .floating-bg i.fa-star {
+            color: rgba(255, 182, 193, 0.5);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(1.4); opacity: 0; }
+        }
+
+        .floating-bg i:nth-child(1) { left: 8%; font-size: 24px; animation-duration: 14s; animation-delay: 0s; }
+        .floating-bg i:nth-child(2) { left: 22%; font-size: 16px; animation-duration: 10s; animation-delay: 2s; }
+        .floating-bg i:nth-child(3) { left: 35%; font-size: 28px; animation-duration: 16s; animation-delay: 4s; }
+        .floating-bg i:nth-child(4) { left: 50%; font-size: 18px; animation-duration: 11s; animation-delay: 1s; }
+        .floating-bg i:nth-child(5) { left: 65%; font-size: 32px; animation-duration: 15s; animation-delay: 3s; }
+        .floating-bg i:nth-child(6) { left: 78%; font-size: 20px; animation-duration: 13s; animation-delay: 5s; }
+        .floating-bg i:nth-child(7) { left: 90%; font-size: 26px; animation-duration: 12s; animation-delay: 2s; }
+        .floating-bg i:nth-child(8) { left: 15%; font-size: 14px; animation-duration: 18s; animation-delay: 6s; }
+        .floating-bg i:nth-child(9) { left: 45%; font-size: 22px; animation-duration: 13s; animation-delay: 7s; }
+        .floating-bg i:nth-child(10) { left: 82%; font-size: 30px; animation-duration: 16s; animation-delay: 8s; }
+
+        /* ----- Click Pop-out Hearts Animation ----- */
+        .click-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 22px;
+            animation: popOut 1s ease-out forwards;
+        }
+
+        @keyframes popOut {
+            0% { transform: translate(-50%, -50%) scale(0.3) rotate(0deg); opacity: 1; }
+            50% { opacity: 0.9; }
+            100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.6) rotate(var(--rot)); opacity: 0; }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.85), rgba(29, 53, 87, 0.85)), url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 850px;
+            margin: -60px auto 50px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            padding: 40px 30px;
+            position: relative;
+            z-index: 10;
+            flex: 1;
+        }
+
+        /* ----- Image Protection & Pulse Animation ----- */
+        .profile-img-wrap {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: -120px auto 20px auto;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* Transparent Shield to prevent right-click save */
+        .overlay-shield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0); 
+            border-radius: 50%; /* Image shape */
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            display: block;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            animation: heartPulse 2.5s infinite ease-in-out;
+            pointer-events: none; /* Drag/Click වැළැක්වීම */
+            transition: filter 0.2s ease, opacity 0.2s ease;
+        }
+
+        @keyframes heartPulse {
+            0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.5), 0 8px 20px rgba(0,0,0,0.15); }
+            50% { box-shadow: 0 0 0 18px rgba(230, 57, 70, 0), 0 12px 25px rgba(230, 57, 70, 0.25); }
+            100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0), 0 8px 20px rgba(0,0,0,0.15); }
+        }
+
+        /* Screenshot / Focus නැති වූ විට Blur වීම */
+        .profile-img.blurred {
+            filter: blur(25px) grayscale(100%) !important;
+            opacity: 0.1 !important;
+        }
+
+        .profile-name { text-align: center; font-size: 1.8rem; color: var(--text-dark); margin-bottom: 5px; }
+        .profile-tagline { text-align: center; color: #666; margin-bottom: 30px; font-size: 0.95rem; }
+
+        /* Sections */
+        .section-title {
+            text-align: center; color: var(--primary-color); font-size: 1.5rem; margin-bottom: 20px; position: relative; font-weight: 600;
+        }
+        .section-title::after {
+            content: ''; width: 40px; height: 3px; background: var(--primary-color); display: block; margin: 8px auto; border-radius: 2px;
+        }
+        .content-box {
+            margin-bottom: 35px; padding: 25px; background: var(--secondary-color); border-radius: 12px; border-left: 5px solid var(--primary-color);
+            opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; position: relative;
+        }
+        .content-box.visible { opacity: 1; transform: translateY(0); }
+
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 15px; }
+        .detail-item { background: white; padding: 12px 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); font-size: 0.95rem; }
+
+        /* Buttons */
+        .social-buttons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 20px; }
+        .social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; }
+        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+        .btn-youtube { background-color: var(--youtube-color); }
+        .btn-tiktok { background-color: var(--tiktok-color); }
+        .btn-facebook { background-color: var(--facebook-color); }
+
+        .cta-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .cta-buttons { display: flex; flex-direction: column; gap: 15px; align-items: center; margin-top: 20px; }
+        .btn-main { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--primary-color); color: white; padding: 14px 35px; font-size: 1.1rem; text-decoration: none; border-radius: 30px; font-weight: 600; width: 100%; max-width: 350px; box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3); transition: all 0.3s ease; }
+        .btn-main:hover { background: #d62828; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4); }
+        .btn-whatsapp { background: var(--whatsapp-color); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
+        .btn-whatsapp:hover { background: #20ba5a; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); }
+
+        /* Footer */
+        footer { background-color: #1d3557; color: #f8f9fa; text-align: center; padding: 20px 10px; font-size: 0.9rem; line-height: 1.8; margin-top: auto; position: relative; z-index: 10; }
+        footer a.studio-link { color: #e63946; font-weight: 600; text-decoration: none; padding: 3px 8px; border-radius: 4px; transition: all 0.3s ease; }
+        footer a.studio-link:hover { color: #ffffff; background-color: #e63946; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .container { padding: 25px 18px; margin-top: -40px; }
+            .profile-img-wrap { width: 130px; height: 130px; margin-top: -90px; }
+            .profile-img { width: 130px; height: 130px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- පසුබිමේ පාවෙන Hearts සහ Sparkles -->
+    <div class="floating-bg">
+        <i class="fas fa-heart"></i><i class="fas fa-star"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-star"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i>
+    </div>
+
+    <header class="hero">
+        <div>
+            <h1>ආයුබෝවන්, මම හසිත එරංග</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Profile Image with Protection and Pulse Animation -->
+        <div class="profile-img-wrap">
+            <!-- Transparent Overlay Guard Layer -->
+            <div class="overlay-shield"></div>
+            <!-- Your Image -->
+            <img src="495293091_705647631922400_5884170512876404011_n.jpg" alt="Hasitha Eranga" class="profile-img" id="myProtectedPhoto">
+        </div>
+        
+        <h2 class="profile-name">හසිත එරංග</h2>
+        <p class="profile-tagline">රත්නපුර | 2006 | බෞද්ධ</p>
+
+        <!-- About Section -->
+        <section class="content-box">
+            <h3 class="section-title">මා ගැන කෙටි හැඳින්වීමක්</h3>
+            <p>මම සාමකාමී සහ සරල ජීවිතයකට කැමති කෙනෙක්. මගේ අධ්‍යාපනික හා වෘත්තීය පසුබිම පහත පරිදි වේ:</p>
+            <div class="details-grid">
+                <div class="detail-item"><strong>📍 පදිංචිය:</strong> රත්නපුර</div>
+                <div class="detail-item"><strong>🎂 උපන් වර්ෂය:</strong> 2006</div>
+                <div class="detail-item"><strong>📏 උස:</strong> 5'1"</div>
+                <div class="detail-item"><strong>☸️ ආගම:</strong> බෞද්ධ</div>
+                <div class="detail-item"><strong>🎓 අධ්‍යාපනය:</strong> G.C.E. O/L සහ NVQ Level 3 (Plumbing)</div>
+                <div class="detail-item"><strong>💼 රැකියාව:</strong> TVS Sri Lanka ආයතනයේ</div>
+            </div>
+        </section>
+
+        <!-- Hobbies & Content Creation -->
+        <section class="content-box">
+            <h3 class="section-title">විනෝදාංශ සහ නිර්මාණශීලීත්වය</h3>
+            <p>මම නිදහස් වේලාවන්හිදී <strong>දෙමළ චිත්‍රපට (Tamil Movies)</strong> නැරඹීමට ගොඩක් ආසයි. විශේෂයෙන්ම ආදරණීය (Romantic) සහ ක්‍රියාදාම (Action) චිත්‍රපට නරඹන්න කැමතියි.</p>
+            <br>
+            <p>ඊට අමතරව අන්තර්ජාලය ඔස්සේ <strong>Content Creation</strong> කටයුතු වල නිරත වෙනවා. මගේ නිර්මාණ පහත සමාජ මාධ්‍ය ජාලයන් හරහා නැරඹිය හැක:</p>
+            <div class="social-buttons">
+                <a href="https://www.youtube.com/@Techhasithastudio" target="_blank" class="social-btn btn-youtube"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="https://www.tiktok.com/@techhasitha" target="_blank" class="social-btn btn-tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="https://www.facebook.com/Techhasithabro" target="_blank" class="social-btn btn-facebook"><i class="fab fa-facebook"></i> Facebook Page</a>
+            </div>
+        </section>
+
+        <!-- Partner Preferences -->
+        <section class="content-box">
+            <h3 class="section-title">මම බලාපොරොත්තු වන සහකාරිය</h3>
+            <p>මම <strong>සම වයස් ආදරයකට</strong> ගොඩක් කැමතියි. මගේ ජීවන සහකාරිය ලෙස මම සොයන්නේ මගේ අම්මා මෙන් මට ආදරය කරන, හිත හොඳ, අවංක කෙනෙකි.</p>
+            <br>
+            <p>වැරැද්දක් සිදු වූ විට මාව සැර කර හෝ ආදරයෙන් නිවැරදි මාර්ගයට ගන්නා, අහිංසක, <strong>දිග කොණ්ඩයක් ඇති, චාම් හා සංවර ලෙස ඇඳුම් පලඳින තැන්පත් ගෑනු ළමයෙකුට</strong> මම ගොඩක් කැමතියි.</p>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="cta-container">
+            <h3 style="margin-bottom: 8px; color: var(--text-dark);">සම්බන්ධ වීමට කැමතිද?</h3>
+            <p style="color: #666; font-size: 0.95rem;">පහත ක්‍රම දෙකෙන් එකකින් ඔබට මට පණිවිඩයක් යොමු කළ හැක:</p>
+            <div class="cta-buttons">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdlU7fQGqNA9jIXXZDLRY7l1OOXc9AUZc4Zz9Cjp91z9VsS6g/viewform?usp=header" target="_blank" class="btn-main">
+                    <i class="fas fa-file-alt"></i> Google Form එක පුරවන්න
+                </a>
+                <a href="https://wa.me/94727809813?text=Hi%20Hasitha" target="_blank" class="btn-main btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp හරහා කතා කරන්න
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 1. Scroll Fade-in Animation
+        document.addEventListener("DOMContentLoaded", function() {
+            const boxes = document.querySelectorAll('.content-box');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            boxes.forEach(box => observer.observe(box));
+        });
+
+        // 2. Click / Touch Pop-out Hearts Animation
+        document.addEventListener('click', function(e) {
+            const heartCount = 7;
+            const colors = ['#e63946', '#ff4d6d', '#ff758f', '#ffb3c1', '#ff82a9'];
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'fas fa-heart click-heart';
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 40 + Math.random() * 60;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+                const rot = (Math.random() * 360) + 'deg';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.style.setProperty('--tx', tx);
+                heart.style.setProperty('--ty', ty);
+                heart.style.setProperty('--rot', rot);
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+
+        // 3. Security Scripts (Image Protection)
+        const photo = document.getElementById('myProtectedPhoto');
+
+        // A. Right Click (Context Menu) අක්‍රිය කිරීම
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            alert("මෙම වෙබ් අඩවියේ තොරතුරු සහ පින්තූර බාගත කිරීම තහනම් කර ඇත!");
+            return false;
+        });
+
+        // B. Image Drag & Drop අක්‍රිය කිරීම
+        document.addEventListener('dragstart', function (e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // C. Key Combinations & PrintScreen අක්‍රිය කිරීම
+        document.addEventListener('keydown', function (e) {
+            if (
+                e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) ||
+                (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 80))
+            ) {
+                e.preventDefault();
+                alert("මෙම ක්‍රියාව සිදුකළ නොහැක!");
+                return false;
+            }
+
+            if (e.key === "PrintScreen" || e.keyCode === 44) {
+                e.preventDefault();
+                triggerSecurityBlur();
+                navigator.clipboard.writeText(""); 
+                alert("Screenshot ගැනීම තහනම් කර ඇත!");
+            }
+        });
+
+        // D. Snipping Tool / Window Blur
+        window.addEventListener('blur', function () {
+            if (photo) photo.classList.add('blurred');
+        });
+
+        window.addEventListener('focus', function () {
+            if (photo) photo.classList.remove('blurred');
+        });
+
+        function triggerSecurityBlur() {
+            if (photo) {
+                photo.classList.add('blurred');
+                setTimeout(() => {
+                    photo.classList.remove('blurred');
+                }, 2500);
+            }
+        }
+    </script>
+    
+    <footer>
+        <p>&copy; 2026 සියලු හිමිකම් ඇවිරිණි. | නිර්මාණය සහ සැකසුම <a href="https://tech147.github.io/hasitha-portfolio/" target="_blank" class="studio-link">Tech Hasitha Studio</a> විසිනි.</p>
+    </footer>
+
+</body>
+</html>
